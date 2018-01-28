@@ -40,3 +40,28 @@ Started GET "/sidekiq/stats" for 172.19.0.1 at 2018-01-27 21:23:34 +0000
 Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
 Started GET "/sidekiq/busy" for 172.19.0.1 at 2018-01-27 21:23:37 +0000
 Cannot render console from 172.19.0.1! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8530464232523046870);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateCampaigns (20180128131648)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (183.9ms)[0m  [1m[35mCREATE TABLE "campaigns" ("id" serial primary key, "title" character varying, "description" text, "user_id" integer, "status" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_9eb8249bf2"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (31.3ms)[0m  [1m[35mCREATE  INDEX  "index_campaigns_on_user_id" ON "campaigns"  ("user_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180128131648"]]
+  [1m[35m (15.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMembers (20180128131725)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (65.8ms)[0m  [1m[35mCREATE TABLE "members" ("id" serial primary key, "name" character varying, "email" character varying, "campaign_id" integer, "open" boolean, "token" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_0d29a61b4b"
+FOREIGN KEY ("campaign_id")
+  REFERENCES "campaigns" ("id")
+)[0m
+  [1m[35m (31.6ms)[0m  [1m[35mCREATE  INDEX  "index_members_on_campaign_id" ON "members"  ("campaign_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180128131725"]]
+  [1m[35m (14.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(8530464232523046870)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
