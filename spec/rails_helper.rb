@@ -9,6 +9,12 @@ require 'rspec/rails'
 #Adiciona tudo que tem dentro do support no rspec
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
+
+#Permite que o rspec consiga utilizar o devise
+RSpec.configure do |config|
+  config.include Devise::Test::ControllerHelpers, type: :controller
+end
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -31,6 +37,8 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
