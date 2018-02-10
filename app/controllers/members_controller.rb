@@ -7,10 +7,10 @@ class MembersController < ApplicationController
 
   def create
     @member = Member.new(member_params)
-
+  
     respond_to do |format|
       if @member.save
-        format.json { render json: true }
+        format.json { render json: @member }
       else
         format.json { render json: @member.errors, status: :unprocessable_entity }
       end
@@ -20,7 +20,7 @@ class MembersController < ApplicationController
   def destroy
     @member.destroy
 
-    respond_to do |format|
+    respond_to do |format|  
       format.json { render json: true }
     end
   end
